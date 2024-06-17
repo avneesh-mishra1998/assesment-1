@@ -38,6 +38,7 @@ export const userApi = createApi({
               method: "POST",
               body: registerInput,
             }),
+            invalidateTags: ["users"],
         }),
         login: builder.mutation({
             query: (loginInput) => ({
@@ -45,6 +46,7 @@ export const userApi = createApi({
                 method: "POST",
                 body: loginInput,
             }),
+            invalidateTags: ["users"],
         }),
         approveEmp: builder.mutation({
             query: (empData) => ({
@@ -55,10 +57,10 @@ export const userApi = createApi({
             invalidateTags: ["users"],
         }),
         updateEmp: builder.mutation({
-            query: (empData, id) => ({
+            query: ({data, id}) => ({
               url: `/update-emp/${id}`,
               method: "PUT",
-              body: empData,
+              body: {...data},
             }),
             invalidateTags: ["users"],
         }),
@@ -67,14 +69,14 @@ export const userApi = createApi({
               url: `/get-emp/${id}`,
               method: "GET"
             }),
-            invalidateTags: ["users"],
+            providesTags: ["users"],
         }),
         getAllEmp: builder.query({
             query: () => ({
-              url: `/get-dep`,
+              url: `/get-emp`,
               method: "GET"
             }),
-            invalidateTags: ["users"],
+            providesTags: ["users"],
         }),
         deleteEmp: builder.mutation({
             query: (id) => ({
@@ -83,19 +85,19 @@ export const userApi = createApi({
             }),
             invalidateTags: ["users"],
         }),
-        getEmpByLocation: builder.query({
-            query: (asc, location) => ({
-              url: `/get-emp/${asc}/${location}`,
+        getEmpByLocation: builder.mutation({
+            query: ({asc,location}) => ({
+              url: `/filter-emp-location/${asc}/${location}`,
               method: "GET"
             }),
-            invalidateTags: ["users"],
+            providesTags: ["users"],
         }),
-        getAllEmpByName: builder.query({
-            query: (asc, name) => ({
-              url: `/get-dep/${asc}/${name}`,
+        getAllEmpByName: builder.mutation({
+            query: ({asc, name}) => ({
+              url: `/filter-emp-name/${asc}/${name}`,
               method: "GET"
             }),
-            invalidateTags: ["users"],
+            providesTags: ["users"],
         }),
     })
 });
@@ -109,6 +111,6 @@ export const {
     useGetEmpByIdQuery,
     useGetAllEmpQuery,
     useDeleteEmpMutation,
-    useGetEmpByLocationQuery,
-    useGetAllEmpByNameQuery
+    useGetEmpByLocationMutation,
+    useGetAllEmpByNameMutation
     } = userApi;

@@ -98,9 +98,11 @@ function Login() {
         registerSuccess()
         setTimeout(()=>{
           setRegisterInput({
-            name: "",
+            full_name: "",
             email: "",
             password: "",
+            role: "",
+            location: ""
         });
           setCheck("login")
         },0)
@@ -255,8 +257,8 @@ const loginFail = () => {
                <label className="border-2 mb-6 border-transparent focus-within:border-blue-500 bg-green-100 rounded-md w-full md:max-w-[300px] lg:max-w-[450px] px-2 gap-x-2 flex items-center h-10 mx-auto">
               <select name="role" onChange={handleInputChange} className="w-full text-gray-500 bg-transparent placeholder:text-gray-400 placeholder:text-[12px] focus:outline-none focus:border-none">
                 <option value="Actions">Choose Role</option>
-                <option value="Employee">Employee Signup</option>
-                <option value="Manager">Manager Signup</option>
+                <option value="Employee">Employee</option>
+                <option value="Manager">Manager</option>
               </select>
               </label>
               <label className="border-2 mb-6 border-transparent focus-within:border-blue-500 bg-green-100 rounded-md w-full md:max-w-[300px] lg:max-w-[450px] px-2 gap-x-2 flex items-center h-10 mx-auto">

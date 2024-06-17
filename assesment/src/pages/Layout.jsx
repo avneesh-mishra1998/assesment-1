@@ -4,6 +4,8 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import { LuUsers } from "react-icons/lu";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/reducer/userReducer";
 
 
 function Layout() {
@@ -11,6 +13,7 @@ function Layout() {
   const [notification, setNotification] = useState(false);
   const [profile, setProfile] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const dispatch = useDispatch();
   function bodyFixed() {
     if (showMenu) {
       document.body.classList.add("overflow-hidden");
@@ -35,14 +38,12 @@ function Layout() {
 
 
 // user logout  
-const logoutHandler=()=>{
-  localStorage.removeItem("isAuth");
-  logoutSuccess()
-  setTimeout(()=>{
-    navigate("/login")
-  },2000)
- 
-  
+const logoutHandler=async()=>{
+  await dispatch(logout());
+    localStorage?.clear();
+    setTimeout(()=>{
+      navigate("/login")
+    },0)
 }
 
 
@@ -116,12 +117,12 @@ const logoutSuccess = () => {
       <header className="p-4 flex justify-between  items-center lg:justify-end">
         <button
           onClick={() => setShowMenu(!showMenu)}
-          class="w-8 h-8 p-1  items-center justify-center text-[#667085] text-[24px] flex lg:hidden"
+          className="w-8 h-8 p-1  items-center justify-center text-[#667085] text-[24px] flex lg:hidden"
         >
           <svg
             stroke="currentColor"
             fill="none"
-            stroke-width="0"
+            strokeWidth="0"
             viewBox="0 0 24 24"
             height="1em"
             width="1em"
@@ -168,8 +169,8 @@ const logoutSuccess = () => {
               </div>
             </button>
             {profile && (
-              <ul class="focus:outline-none py-3 rounded-md shadow-sm w-[150px] bg-white border border-[#c1c1c169] absolute top-full mt-2 right-0 z-0 sm:z-50">
-                <li role="menuitem" class="flex justify-center ">
+              <ul className="focus:outline-none py-3 rounded-md shadow-sm w-[150px] bg-white border border-[#c1c1c169] absolute top-full mt-2 right-0 z-0 sm:z-50">
+                <li role="menuitem" className="flex justify-center ">
                   <button onClick={()=>logoutHandler()} className="text-sm text-left py-2 px-4 bg-red-500 text-white rounded-md">
                    Logout
                   </button>
@@ -235,6 +236,7 @@ const logoutSuccess = () => {
           className="w-full lg:w-[calc(100%-320px)] p-5 lg:p-8 "
           style={{ boxShadow: "inset 0 0 16px rgba(0, 0, 0, 0.08)" }}
         >
+          <h1>Welcome</h1>
           <main>
             <Outlet />
           </main>

@@ -3,7 +3,16 @@ import { LuSearch } from "react-icons/lu";
 import Table2 from "../component/Table2";
 
 function Department() {
-    const [modal1, setModal1] = useState(false);
+  const [modal1, setModal1] = useState(false);
+  const [modalType, setModalType] = useState("create");
+  const [updateId, setUpdateId] = useState({ id: 0, depData: {} });
+
+  const handleCreateClick = () => {
+    setModalType("create");
+    setUpdateId({ id: 0, depData: {} });
+    setModal1(true);
+  };
+
   return (
     <div>
       <div className="flex flex-wrap gap-3 justify-between mb-3">
@@ -12,7 +21,7 @@ function Department() {
             <input
               className="text-[12px] pl-10 w-full border !border-[#DBE6FF] h-10 px-4 py-3 focus:ring-0 focus:outline-none"
               type="text"
-              placeholder="Search by user name, user ID,mail ID"
+              placeholder="Search by user name, user ID, mail ID"
             />
             <span className="top-1/2 absolute left-3 text-[20px] -translate-y-1/2 text-[#0080FF]">
               <LuSearch />
@@ -22,13 +31,13 @@ function Department() {
             Search
           </button>
         </div>
-        <div className="flex w-full sm:w-auto flex-wrap justify-between md:justify-end items-center  gap-3 md:gap-4">
-          <button onClick={()=>setModal1(true)}  className="text-[#ffffff] flex-1 sm:flex-none bg-[#0080FF] px-4 md:px-5 py-2 rounded-sm text-[14px]">
+        <div className="flex w-full sm:w-auto flex-wrap justify-between md:justify-end items-center gap-3 md:gap-4">
+          <button onClick={handleCreateClick} className="text-[#ffffff] flex-1 sm:flex-none bg-[#0080FF] px-4 md:px-5 py-2 rounded-sm text-[14px]">
             Create Department
           </button>
         </div>
       </div>
-      <Table2 modal1={modal1} setModal1={setModal1} />
+      <Table2 modal1={modal1} setModal1={setModal1} modalType={modalType} setModalType={setModalType} updateId={updateId} setUpdateId={setUpdateId} />
     </div>
   );
 }

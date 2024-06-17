@@ -3,6 +3,25 @@ const prisma = new PrismaClient()
 const utilities = require('../../common-helpers/utilities')
 const APP = require('../../SERVICES-LIBRARY/app')
 
+
+// const CreateEmp = async (request, reply) => {
+//     const {fullName, email, location, password} = request.body
+//     try {
+//         let find_emp = await prisma.user.create({
+//             data: {
+//                 fullName,
+//                 email,
+//                 location,
+//                 password
+//             }
+//         });
+//         reply.status(200).send({message: "Employee approve Successfully", data: update_emp})
+//     } catch (error) {
+//         console.error(error);
+//         reply.status(500).send({ message: 'Internal Server Error' });
+//     }
+// }
+
 const ApproveEmp = async (request, reply) => {
     const {emp_id, dep_id} = request.body
     try {
@@ -84,7 +103,7 @@ const deleteEmp = async (request, reply) => {
 
 const filterEmpLocation = async (request, reply) => {
     const {asc= true, location} = request.params
-    console.log( asc);
+    console.log( asc,location);
     try {
         let filter_emp = await prisma.user.findMany({
             where: { 

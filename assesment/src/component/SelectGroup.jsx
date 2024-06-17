@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useGetAllDepQuery} from "../store/api/depApi"
 
-const options = ['Department 1', 'DepartmentGroup 2', 'Department 3'];
 
-const SelectGroup = () => {
+
+const SelectGroup = ({handleGetId}) => {
   const [selectedGroups, setSelectedGroups] = useState([]);
+  const [dep, setDep] = useState([]);
+  const department = useGetAllDepQuery();
+
+  useEffect(() => {
+    if (department.isError) {
+      console.error("Error fetching data:", department.error);
+    } else if (department?.data?.status) {
+      setDep(department.data.data.read_dep);
+    }
+    // refetch();
+  }, [department]);
 
   const handleSelectChange = (event) => {
     const value = event.target.value;
+    handleGetId(value);
+    console.log(value,'valka');
     if (value && !selectedGroups.includes(value)) {
       setSelectedGroups([...selectedGroups, value]);
     }
@@ -25,8 +39,8 @@ const SelectGroup = () => {
         value=""
       >
         <option value="">Select Department</option>
-        {options.map(option => (
-          <option key={option} value={option}>{option}</option>
+        {dep.map(option => (
+          <option key={option.id} value={option.id}>{option.depName}</option>
         ))}
       </select>
       <div className="flex flex-wrap gap-2">

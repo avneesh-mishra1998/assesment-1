@@ -37,15 +37,15 @@ export const depApi = createApi({
             query: (depData) => ({
               url: "/create-dep",
               method: "POST",
-              body: depData,
+              body: {depName:depData},
             }),
             invalidateTags: ["departments"],
         }),
         updateDep: builder.mutation({
-            query: (depData, id) => ({
+            query: ({depName,id}) => ({
               url: `/update-dep/${id}`,
               method: "POST",
-              body: depData,
+              body: {depName},
             }),
             invalidateTags: ["departments"],
         }),
@@ -54,14 +54,14 @@ export const depApi = createApi({
               url: `/get-one-dep/${id}`,
               method: "GET"
             }),
-            invalidateTags: ["departments"],
+            providesTags: ["departments"],
         }),
         getAllDep: builder.query({
             query: () => ({
               url: `/get-all-dep`,
               method: "GET"
             }),
-            invalidateTags: ["departments"],
+            providesTags: ["departments"],
         }),
         deleteDep: builder.mutation({
             query: (id) => ({

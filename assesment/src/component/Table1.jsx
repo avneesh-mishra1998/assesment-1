@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaAnglesRight } from "react-icons/fa6";
 import { FaAnglesLeft } from "react-icons/fa6";
 import { data } from "./data1";
 import ApproveModal from "./ApproveModal";
+import {useGetAllEmpQuery } from "../store/api/userApi";
+
+
 function Table1() {
+  const [emp, setEmp] = useState({id:0, data: {}})
+  const [employees, setEmployees] = useState([]);
+  const employeeData = useGetAllEmpQuery()
   const [modal1, setModal1] = useState(false);
   // Add pagination
   const [page, setPage] = useState(1);
   const limit = 7;
   const skip = (page - 1) * limit;
-  const totalPages = Math.ceil(data.length / limit);
-  const currentData = data.slice(skip, skip + limit);
+  const totalPages = Math.ceil(employees.length / limit);
+  const currentData = employees.slice(skip, skip + limit);
+
+  useEffect(() => {
+    if (employeeData.isError) {
+      console.error("Error fetching data:", employeeData.error);
+    } else if (employeeData?.data?.status) {
+      setEmployees(employeeData.data.data.read_emp);
+    }
+  }, [employeeData]);
+
   const handlePrevPage = () => {
     if (page > 1) setPage(page - 1);
   };
@@ -46,6 +61,16 @@ function Table1() {
     }, 500);
   };
 
+  const approveHandler = (id, data) => {
+    setEmp({id:id, data: data})
+    setModal1(true)
+  }
+
+  // API call to reject employee
+  const rejectHandler = (id) => {
+    
+  }
+
   return (
     <div>
     <div className="shadow-sm overflow-x-auto overflow-y-hidden">
@@ -77,16 +102,16 @@ function Table1() {
               <td className="p-3">{item.id}</td>
 
               <td className="p-3">
-                  <span>{item.name}</span>
+                  <span>{item.full_name}</span>
               </td>
               <td className="p-3">{item.email}</td>
-              <td className="p-3">{item.address}</td>
+              <td className="p-3">{item.location}</td>
               <td className="p-3 rounded-s-md">
                 <div className="flex gap-x-2">
-                  <button className="text-white px-4 bg-green-600  py-1 rounded-sm text-[12px]" onClick={()=>setModal1(true)} >
+                  <button onClick={()=>approveHandler(item.id, item)} className="text-white px-4 bg-green-600  py-1 rounded-sm text-[12px]" >
                    Approve
                   </button>
-                  <button className="text-[#fff] px-2 bg-red-500  px-2 py-1 rounded-sm text-[12px]">
+                  <button onClick={()=>rejectHandler(id)} className="text-[#fff] px-2 bg-red-500  px-2 py-1 rounded-sm text-[12px]">
                    Reject
                   </button>
                 
@@ -101,7 +126,7 @@ function Table1() {
 
 
     {modal1 && (
-        <ApproveModal successHandler={successHandler} setModal1={setModal1} />
+        <ApproveModal successHandler={successHandler} emp={emp} setModal1={setModal1} />
       )}
     <div className="flex justify-end gap-x-3 md:gap-x-5 items-center mt-5 mb-2">
         <button
