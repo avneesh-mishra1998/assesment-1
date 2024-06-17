@@ -64,6 +64,13 @@ export const userApi = createApi({
             }),
             invalidateTags: ["users"],
         }),
+        getProfile: builder.query({
+            query: (id) => ({
+              url: `/get-profile`,
+              method: "GET"
+            }),
+            providesTags: ["users"],
+        }),
         getEmpById: builder.query({
             query: (id) => ({
               url: `/get-emp/${id}`,
@@ -99,6 +106,7 @@ export const userApi = createApi({
             }),
             providesTags: ["users"],
         }),
+
     })
 });
 
@@ -108,6 +116,7 @@ export const {
     useLoginMutation,
     useApproveEmpMutation,
     useUpdateEmpMutation,
+    useGetProfileQuery,
     useGetEmpByIdQuery,
     useGetAllEmpQuery,
     useDeleteEmpMutation,

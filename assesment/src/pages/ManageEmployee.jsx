@@ -2,7 +2,7 @@ import React from "react";
 import { LuSearch } from "react-icons/lu";
 import { FaArrowUpShortWide } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
-import Table from "../component/Table";
+
 import Table1 from "../component/Table1";
 
 

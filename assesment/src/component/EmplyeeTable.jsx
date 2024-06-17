@@ -37,33 +37,34 @@ function EmployeeTable({ modal1, setModal1, modalType, setModalType, updateId, s
           location:searchText
         }
           let res =await getEmpByLocation(body);
-          console.log(res);
+          console.log("==",res);
           setEmployees(()=>res?.data?.data?.filter_emp)
       }
-    callgetByLocationApi();
+      callgetByLocationApi();
     }
     if(searchName !==""){
-      async function callgetByLocationApi(){
+      async function callgetByNameApi(){
         let body = {
           asc:true,
           name:searchName
         }
           let res =await getEmpByName(body);
-          console.log(res);
+          console.log(searchName);
           setEmployees(()=>res?.data?.data?.filter_emp)
       }
-      callgetByLocationApi();
+      callgetByNameApi();
     }
-      async function callgetByLocationApi(){
-        let body = {
-          asc:asc,
-          location:searchText
-        }
-          let res =await getEmpByLocation(body);
-          console.log(res);
-          setEmployees(()=>res?.data?.data?.filter_emp)
-      }
-    callgetByLocationApi();
+      // async function callgetByLocationApi(){
+      //   let body = {
+      //     asc:asc,
+      //     location:searchText
+      //   }
+      //     let res =await getEmpByLocation(body);
+      //     setEmployees(()=>res?.data?.data?.filter_emp)
+      // }
+      // if(searchName !=="" & searchText !== ""){
+      //   callgetByLocationApi();
+      // }
   },[searchText,searchName,asc])
 
   const empDeleteHandler = async (id) => {

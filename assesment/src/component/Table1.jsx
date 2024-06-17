@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaAnglesRight } from "react-icons/fa6";
 import { FaAnglesLeft } from "react-icons/fa6";
-import { data } from "./data1";
 import ApproveModal from "./ApproveModal";
 import {useGetAllEmpQuery } from "../store/api/userApi";
 
@@ -54,8 +53,7 @@ function Table1() {
     }
     return buttons;
   };
-  const successHandler = (e) => {
-    e.preventDefault()
+  const successHandler = () => {
     setTimeout(() => {
       setModal1(false);
     }, 500);

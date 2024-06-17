@@ -22,6 +22,19 @@ const APP = require('../../SERVICES-LIBRARY/app')
 //     }
 // }
 
+
+const readEmp = async (request, reply) => {
+    try {
+        let read_emp = await prisma.user.findFirst({
+            where: { id: request.user.id }
+        });
+        reply.status(200).send({message: "Employee approve Successfully", data: read_emp})
+    } catch (error) {
+        console.error(error);
+        reply.status(500).send({ message: 'Internal Server Error' });
+    }
+}
+
 const ApproveEmp = async (request, reply) => {
     const {emp_id, dep_id} = request.body
     try {
@@ -152,5 +165,6 @@ module.exports = {
     updateEmp,
     deleteEmp,
     filterEmpLocation,
-    filterEmpName
+    filterEmpName,
+    readEmp
 }

@@ -6,9 +6,13 @@ import { ToastContainer, toast, Bounce } from 'react-toastify';
 import { LuUsers } from "react-icons/lu";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/reducer/userReducer";
+import UserHome from './UserHome'
 
 
 function Layout() {
+  let isAuth = localStorage.getItem("role")
+  let userName = localStorage.getItem("user")
+  console.log("----",isAuth);
   const navigate=useNavigate()
   const [notification, setNotification] = useState(false);
   const [profile, setProfile] = useState(false);
@@ -158,7 +162,7 @@ const logoutSuccess = () => {
               </div>
               <div className="text-left pr-10 relative">
                 <h4 className="text-base/[20px] text-[#333] font-semibold">
-                  Krishna Kumar
+                  {userName}
                 </h4>
                 <Link to="/" className="text-sm text-blue-500 block">
                   View Profile
@@ -180,7 +184,9 @@ const logoutSuccess = () => {
           </div>
         </div>
       </header>
-      <div className="flex">
+      {
+        isAuth == "Employee" ? <UserHome/> : 
+        <div className="flex">
         <div
           className={`fixed h-[calc(100dvh-72px)] shadow-md lg:shadow-none  lg:relative  left-0 w-[320px] py-8 px-6 bg-white z-50 lg:z-0 ${
             showMenu ? "translate-x-[0]" : ""
@@ -236,12 +242,14 @@ const logoutSuccess = () => {
           className="w-full lg:w-[calc(100%-320px)] p-5 lg:p-8 "
           style={{ boxShadow: "inset 0 0 16px rgba(0, 0, 0, 0.08)" }}
         >
-          <h1>Welcome</h1>
+          <h1>Welcome To Manger Dashboard</h1>
           <main>
             <Outlet />
           </main>
         </div>
-      </div>
+        </div>
+      }
+      
     </>
   );
 }
