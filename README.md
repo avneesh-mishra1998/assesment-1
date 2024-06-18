@@ -2,50 +2,39 @@
 
 # This repository contains a full stack application with separate frontend and backend components.
 
-## Frontend (Assessment folder)
-
-    The frontend is built using React with Vite as the bundler and Redux for state management.
-
-# Getting Started
-    Navigate to the assessment folder:
-
-    bash
-    Copy code
-    move to folder
-    Install dependencies:
-    Running the Frontend
-
-   # bash
-    Copy code
-    cd assesment
-    npm install
-    npm run dev
-    To start the frontend development server:
-
-    This command will run the frontend using Vite.
-
-## Backend (Backend folder)
-   # use url for swagger docs: http://127.0.0.1:5105/api-documentation
-    The backend is implemented with Fastify and uses JWT for authentication.
-
-    Getting Started
-    Move to the start_backend directory:
-
-    bash
-    Copy code
-    move to folder
-    Install dependencies:
-    Running the Backend
-    To start the backend server:
 
 
-   # bash
-    Copy code
-    cd start_backend
-    npm install
-    npm run dev
+# Frontend React + Vite
 
-    This command will start the backend server using Fastify. 
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+## Steps to start frontend
+    1. Clone the repository
+    2. cd ./assesment
+    3. Run `npm install` to install all dependencies
+    4. Run `npm run dev` to start the development server
+    5. Open `http://localhost:5173/` in your browser to see the app
+
+
+
+*******************************************************************
+
+# Backend NodeJs + Fastify
+
+This setup provide minimal setup for running a fastify backend server
+
+## Steps to start backend
+    1. Clone the repository
+    2. cd ./start_backend
+    3. Run `npm install` to install all dependencies
+    4. Replace the mySQL server url with your url from env file
+    5. Run `npx prisma db push` for database migration or synching
+    6. Run `npm run dev` to start the server in development mode
+    7. Open `http://127.0.0.1:5105/api-documentation` in your browser to see the swageer api or open api
+    8. Open `http://127.0.0.1:5105/api/v1` in your browser to see the swageer api or open api
+
+
+
 
 ## Environment Variables
     Both frontend and backend configurations rely on a .env file, which is included in this repository. No additional setup is required for environment variables.
